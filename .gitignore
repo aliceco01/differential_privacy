@@ -1,0 +1,97 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# TensorFlow / Keras
+*.h5
+*.hdf5
+saved_models/
+checkpoints/
+logs/
+tensorboard_logs/
+
+# Model files
+*.pkl
+*.pickle
+*.model
+*.weights
+
+# Data files
+*.csv
+*.npy
+*.npz
+data/
+datasets/
+
+# Images and plots
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+!presentation/*.png
+!presentation/*.jpg
+
+# Presentation files
+*.pptx
+*.ppt
+*.pdf
+!presentation/*.pdf
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Environment variables
+.env
+.env.local
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
