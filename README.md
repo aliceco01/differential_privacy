@@ -92,36 +92,113 @@ Key hyperparameters (in `dp_ae.py`):
 - `LEARNING_RATE`: Optimizer learning rate
 - `SD`: Standard deviation for differential privacy noise
 
-## Known Issues & Limitations
+## Recent Improvements (December 2025)
 
-1. **Outdated Dependencies**: The codebase uses TensorFlow 2.0.1 (from 2019). Consider updating to TensorFlow 2.x for security and performance improvements.
-2. **Mixed APIs**: Some files use Keras while others use TensorFlow, which could be standardized.
-3. **Global Variables**: Configuration via global variables should be refactored to use configuration files or classes.
-4. **Limited Documentation**: Function docstrings and inline comments need expansion.
+### Completed Enhancements
+1. **Modern TensorFlow 2.13+**: Updated from TensorFlow 2.0.1 with all secure dependencies
+2. **Unit Tests**: Full test suite with pytest, coverage reporting, and CI-ready structure
+3. **Configuration File Support**: YAML/JSON config loading with validation and examples
+4. **Enhanced CLI**: Advanced command-line interface with config file support and rich options
+5. **Professional Logging**: Structured logging system with file/console output and error tracking
+6. **Privacy Budget Tracking**: Complete epsilon/delta tracking with composition methods
+7. **DP Mechanisms Library**: Gaussian, Laplace mechanisms and Privacy Accountant implementation
 
-## Future Improvements
+### New Features
 
-- [ ] Update to modern TensorFlow versions
-- [ ] Add comprehensive unit tests
-- [ ] Implement configuration file support (YAML/JSON)
-- [ ] Add command-line interface (CLI)
-- [ ] Improve error handling and logging
-- [ ] Add more privacy budget tracking
-- [ ] Implement additional DP mechanisms
+#### Running Tests
+```bash
+# Run all tests with coverage
+python run_tests.py
 
-## Research Context
+# Or use pytest directly
+pytest tests/ -v --cov
 
-This project appears to be research-focused on:
-- Telemetry fusion for anomaly detection
-- Privacy-preserving machine learning
-- Dimensionality reduction techniques
-- Differential privacy guarantees in neural networks
+# Run specific tests
+pytest tests/test_privacy.py -v
+```
 
-## Contributing
+#### Using Configuration Files
+```bash
+# Train with YAML config
+python train.py --config examples/config_autoencoder.yaml
 
-When contributing, please:
-1. Follow PEP 8 style guidelines
-2. Add docstrings to all functions/classes
-3. Include unit tests for new features
-4. Update this README with any new functionality
+# Train with JSON config  
+python train.py --config examples/config_vae.json
+
+# Save configuration
+python train.py --model vae --epochs 20 --save-config my_config.yaml
+```
+
+#### Privacy Budget Tracking
+```python
+from privacy import PrivacyAccountant, GaussianMechanism
+
+# Create accountant with total budget
+accountant = PrivacyAccountant(epsilon=2.0, delta=1e-5)
+
+# Create DP mechanism
+mech = accountant.create_gaussian_mechanism(
+    epsilon=0.5, delta=1e-6, sensitivity=1.0, name="gradient_noise"
+)
+
+# Add noise to data
+noisy_data = mech.add_noise(data)
+
+# Check budget status
+print(accountant.get_report())
+```
+
+#### Advanced Logging
+```python
+from logging_utils import setup_logging
+
+# Setup logging
+logger = setup_logging(
+    log_dir='./logs',
+    log_level='INFO',
+    log_to_file=True
+)
+
+logger.info("Training started")
+```
+
+## Project Structure
+
+```
+differential_privacy/
+├── README.md                  # This file
+├── requirements.txt           # Updated dependencies (TensorFlow 2.13+)
+├── setup.py                   # Package configuration
+├── config.py                  # Configuration dataclasses with YAML/JSON support
+├── train.py                   # Enhanced CLI training interface
+├── privacy.py                 # DP mechanisms and budget tracking
+├── logging_utils.py           # Logging configuration
+│
+├── dp_ae.py                   # DP Autoencoder models
+├── dp_pca.py                  # Probabilistic PCA
+├── utils.py                   # Utility functions
+│
+├── examples/                  # Example configurations
+│   ├── config_autoencoder.yaml
+│   └── config_vae.json
+│
+└── tests/                     # Comprehensive test suite
+    ├── conftest.py
+    ├── test_config.py
+    ├── test_models.py
+    ├── test_privacy.py
+    └── test_utils.py
+```
+
+
+## Future Enhancements
+
+- [ ] Full migration to configuration objects across all modules
+- [ ] TensorBoard integration for training visualization
+- [ ] Distributed training support
+- [ ] Pre-trained model zoo
+- [ ] Web UI for experiment management
+- [ ] Additional DP optimization algorithms (DP-Adam, DP-FTRL)
+
+
 

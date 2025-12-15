@@ -1,0 +1,12 @@
+# Example configuration for basic autoencoder
+# Save this as config.yaml and load with: python train.py --config config.yaml
+
+epochs: 20
+batch_size: 64
+learning_rate: 0.001
+latent_size: 10
+lambda_reg: 0.00001
+noise_std: 0.15
+save_encodings: true
+model_dir: ./models/experiment_1
+log_interval: 50

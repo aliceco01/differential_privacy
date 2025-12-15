@@ -18,14 +18,31 @@ import numpy as np
 from datetime import datetime
 
 from dp_ae import basic_AE, basic_VAE
-from config import AutoencoderConfig, VAEConfig, get_default_config
+from config import (AutoencoderConfig, VAEConfig, get_default_config, 
+                    load_config, save_config)
 import utils
+import logging
 
 
 def parse_args():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
-        description='Train differential privacy autoencoder models'
+        description='Train differential privacy autoencoder models',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Train with default settings
+  python train.py --model autoencoder --epochs 10
+  
+  # Load config from file
+  python train.py --config examples/config_autoencoder.yaml
+  
+  # Train with custom parameters
+  python train.py --model vae --epochs 30 --latent-size 20 --learning-rate 0.0001
+  
+  # Save current config to file
+  python train.py --model autoencoder --save-config my_config.yaml --no-train
+        """
     )
     
     # Model selection
@@ -35,6 +52,23 @@ def parse_args():
         default='autoencoder',
         choices=['autoencoder', 'vae'],
         help='Model type to train'
+    )
+    
+    # Configuration file
+    parser.add_argument(
+        '--config',
+        type=str,
+        help='Path to configuration file (YAML or JSON). Overrides other parameters.'
+    )
+    parser.add_argument(
+        '--save-config',
+        type=str,
+        help='Save current configuration to file and optionally exit'
+    )
+    parser.add_argument(
+        '--no-train',
+        action='store_true',
+        help='Don\'t train, only save configuration (use with --save-config)'
     )
     
     # Hyperparameters
@@ -52,6 +86,8 @@ def parse_args():
     # Flags
     parser.add_argument('--save-encodings', action='store_true', help='Save encodings during training')
     parser.add_argument('--no-gpu', action='store_true', help='Disable GPU training')
+    parser.add_argument('--verbose', action='store_true', help='Enable verbose logging')
+    parser.add_argument('--debug', action='store_true', help='Enable debug mode')
     
     return parser.parse_args()
 
