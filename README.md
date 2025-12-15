@@ -9,20 +9,7 @@ The project explores privacy-preserving machine learning through:
 - **Probabilistic PCA (pPCA)**: Statistical approach to dimensionality reduction with privacy considerations
 - **MNIST Experiments**: Demonstrations using the MNIST dataset
 
-## Project Structure
 
-```
-differential_privacy/
-├── dp_ae.py              # Differential privacy autoencoder implementation
-├── dp_pca.py             # Probabilistic PCA implementation
-├── mnist_cnn_tf2.py      # MNIST CNN classifier (TensorFlow 2.x)
-├── MNIST_autoencoder.py  # Keras-based autoencoder
-├── utils.py              # Utility functions
-├── presentation_figs.py  # Visualization and plotting utilities
-├── resize_images.py      # Image preprocessing utilities
-├── requirements.txt      # Python dependencies
-└── presentation/         # Presentation materials
-```
 
 ## Setup Instructions
 
@@ -138,12 +125,3 @@ When contributing, please:
 3. Include unit tests for new features
 4. Update this README with any new functionality
 
-## License
-
-[License information not specified]
-
-## References
-
-For more information on differential privacy and its applications in machine learning, see:
-- Dwork, C., & Roth, A. (2014). The algorithmic foundations of differential privacy
-- Abadi, M., et al. (2016). Deep learning with differential privacy
